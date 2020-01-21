@@ -15,7 +15,7 @@
         🐓上級🐓
       </button>
     </div>
-    
+
     <div style="margin: 1rem 0;"></div>
 
     <table data-class="minesweeper-board" class="minesweeper-board">
@@ -46,7 +46,7 @@
             </td>
           </template>
         </tr>
-      </template>    
+      </template>
     </table>
   </div>
 </template>
@@ -80,13 +80,13 @@ class Cell {
    * 自動で開くことができるか判定して返します.
    * @return {Boolean}
    */
-  autoOpenable() {
-    return !this.isOpen && !this.isBomb;
+  autoOpenable () {
+    return !this.isOpen && !this.isBomb
   }
 }
 export default {
-  name: "Minesweeper",
-  data() {
+  name: 'Minesweeper',
+  data () {
     return {
       /**
        * ゲームが開始されたか.
@@ -98,28 +98,28 @@ export default {
        * @type {Array}
        */
       area: [],
-      
+
       /**
        * 盤面の行数.
        * @type {Number}
        */
       maxX: 9,
-      
+
       /**
        * 盤面の列数.
        * @type {Number}
        */
       maxY: 9,
-      
+
       /**
        * 地雷の数.
        * @type {Number}
        */
-      numOfBomb: 0,
+      numOfBomb: 0
     }
   },
-  created() {
-    this._clearBoard();
+  created () {
+    this._clearBoard()
   },
   methods: {
     /**
@@ -128,49 +128,48 @@ export default {
      * @param {Number} maxY 列数.
      * @param {Number} numOfBomb 地雷の数.
      */
-    start(maxX, maxY, numOfBomb) {
-      this.started = false;
-      this.maxX = maxX;
-      this.maxY = maxY;
-      this.numOfBomb = numOfBomb;
-      
-      this._clearBoard();
-      this._layMines();
-      this.started = true;
+    start (maxX, maxY, numOfBomb) {
+      this.started = false
+      this.maxX = maxX
+      this.maxY = maxY
+      this.numOfBomb = numOfBomb
+      this._clearBoard()
+      this._layMines()
+      this.started = true
     },
     /**
      * セルを開きます.
      * @param {Number} x 何行目.
      * @param {Number} y 何列目.
      */
-    open(x, y) {
+    open (x, y) {
       // 💣だったら終了
       if (this.area[x][y].isBomb) {
-        alert("Bomb!!!");
+        alert('Bomb!!!')
         for (let i = 0; i < this.maxX; i++) {
           for (let j = 0; j < this.maxY; j++) {
-            this.area[i][j].isOpen = true;
+            this.area[i][j].isOpen = true
           }
         }
       }
-      this.area[x][y].isOpen = true;
-      if (this.area[x][y].bombCount !== 0) return;
+      this.area[x][y].isOpen = true
+      if (this.area[x][y].bombCount !== 0) return
       // 周囲に地雷がない空きセルを開く
       // 左のセル
-      if (x-1 >= 0 && this.area[x-1][y].autoOpenable()) {
-        this.open(x-1, y);
+      if (x - 1 >= 0 && this.area[x - 1][y].autoOpenable()) {
+        this.open(x - 1, y)
       }
       // 右のセル
-      if (x+1 <= this.maxX-1 && this.area[x+1][y].autoOpenable()) {
-        this.open(x+1, y);
+      if (x + 1 <= this.maxX - 1 && this.area[x + 1][y].autoOpenable()) {
+        this.open(x + 1, y)
       }
       // 上のセル
-      if (y-1 >= 0 && this.area[x][y-1].autoOpenable()) {
-        this.open(x, y-1);
+      if (y - 1 >= 0 && this.area[x][y - 1].autoOpenable()) {
+        this.open(x, y - 1)
       }
       // 下のセル
-      if (y+1 <= this.maxY-1 && this.area[x][y+1].autoOpenable()) {
-        this.open(x, y+1);
+      if (y + 1 <= this.maxY - 1 && this.area[x][y + 1].autoOpenable()) {
+        this.open(x, y + 1)
       }
     },
     /**
@@ -178,58 +177,58 @@ export default {
      * @param {Number} x 何行目.
      * @param {Number} y 何列目.
      */
-    mark(x, y) {
+    mark (x, y) {
       if (!this.area[x][y].isOpen) {
-        this.area[x][y].isMark = !this.area[x][y].isMark;
+        this.area[x][y].isMark = !this.area[x][y].isMark
       }
     },
     /**
      * 盤面をクリアします.
      */
-    _clearBoard() {
-      this.area = [];
+    _clearBoard () {
+      this.area = []
       for (let i = 0; i < this.maxX; i++) {
-        const row = [];
+        const row = []
         for (let j = 0; j < this.maxY; j++) {
-          row.push(new Cell({isOpen: true}));
+          row.push(new Cell({isOpen: true}))
         }
-        this.area.push(row);
-      }      
+        this.area.push(row)
+      }
     },
     /**
      * 地雷を配置します.
      */
-    _layMines() {
+    _layMines () {
       // ランダムな整数値を返す
       const getRandomInt = max => {
-        return Math.floor(Math.random() * Math.floor(max));
+        return Math.floor(Math.random() * Math.floor(max))
       }
       for (let i = 0; i < this.numOfBomb; i++) {
-        const x = getRandomInt(this.maxX);
-        const y = getRandomInt(this.maxY);
+        const x = getRandomInt(this.maxX)
+        const y = getRandomInt(this.maxY)
         // 既に地雷が置かれている場合、別のセルに置くようにする
         if (this.area[x][y].isBomb) {
-          i--;
-          continue;
+          i--
+          continue
         }
-        this.area[x][y].isBomb = true;
+        this.area[x][y].isBomb = true
         // 地雷に隣接するセルの周囲の地雷数を増やす
         // 上のセル
-        if (x-1 >= 0) {
-          this.area[x-1][y].bombCount++;
-          if (y-1 >= 0) this.area[x-1][y-1].bombCount++;
-          if (y+1 < this.maxY) this.area[x-1][y+1].bombCount++;
+        if (x - 1 >= 0) {
+          this.area[x - 1][y].bombCount++
+          if (y - 1 >= 0) this.area[x - 1][y - 1].bombCount++
+          if (y + 1 < this.maxY) this.area[x - 1][y + 1].bombCount++
         }
         // 横のセル
-        if (y-1 >= 0) this.area[x][y-1].bombCount++;
-        if (y+1 < this.maxY) this.area[x][y+1].bombCount++;
+        if (y - 1 >= 0) this.area[x][y - 1].bombCount++
+        if (y + 1 < this.maxY) this.area[x][y + 1].bombCount++
         // 下のセル
-        if (x+1 < this.maxX) {
-          this.area[x+1][y].bombCount++;
-          if (y-1 >= 0) this.area[x+1][y-1].bombCount++;
-          if (y+1 < this.maxY) this.area[x+1][y+1].bombCount++;
+        if (x + 1 < this.maxX) {
+          this.area[x + 1][y].bombCount++
+          if (y - 1 >= 0) this.area[x + 1][y - 1].bombCount++
+          if (y + 1 < this.maxY) this.area[x + 1][y + 1].bombCount++
         }
-      }      
+      }
     }
   }
 }
