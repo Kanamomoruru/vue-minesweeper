@@ -1,7 +1,7 @@
 <template>
   <div data-class="minesweeper">
     <h1 data-class="minesweeper-title">
-      Minesweeper&#128163;
+      Minesweeper &#128163;
     </h1>
 
     <div data-class="minesweeper-start-buttons">

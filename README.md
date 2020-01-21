@@ -1,6 +1,12 @@
-# minesweeper
+# Vue.js
 
-> A Vue.js project
+[![Netlify Status](https://api.netlify.com/api/v1/badges/192e4e37-5b02-42ac-be9d-94ecebb5e729/deploy-status)](https://app.netlify.com/sites/kanata-minesweeper/deploys)
+
+
+# Product Name
+> Minesweeper
+
+![](screenshot.png)
 
 ## Build Setup
 
