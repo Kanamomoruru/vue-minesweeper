@@ -1,19 +1,19 @@
 <template>
   <div data-class="minesweeper">
     <h1 data-class="minesweeper-title">
-      Minesweeper
+      Minesweeper&#128163;
     </h1>
 
     <div data-class="minesweeper-start-buttons">
-      <button class="start-button" @click="start(9, 9, 10)">
-        🥚初級🥚
-      </button>
-      <button class="start-button" @click="start(16, 16, 40)">
-        🐤中級🐤
-      </button>
-      <button class="start-button" @click="start(16, 30, 99)">
-        🐓上級🐓
-      </button>
+      <a class="start-button" @click="start(9, 9, 10)">
+        Beginner
+      </a>
+      <a class="start-button" @click="start(16, 16, 40)">
+        Intermediate
+      </a>
+      <a class="start-button" @click="start(16, 30, 99)">
+        Advanced
+      </a>
     </div>
 
     <div style="margin: 1rem 0;"></div>
@@ -234,15 +234,24 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .start-button {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  color: #333;
+  position: relative;
+  display: inline-block;
+  font-weight: bold;
+  padding: 8px 10px 5px 10px;
   text-decoration: none;
-  margin: 2px;
-  width: 8rem;
+  color: #FFA000;
+  background: #fff1da;
+  border-bottom: solid 4px #FFA000;
+  border-radius: 15px 15px 0 0;
+  transition: .4s;
+  &:hover {
+      background: #ffc25c;
+      color: #FFF;
+ }
 }
+
 table.minesweeper-board {
   margin: 0 auto;
 }
